@@ -5,6 +5,7 @@ for i = 1, 10 do
     hl.dsp.workspace.rename({ workspace = i, name = workspaces[i] })
 end
 
+{{- if eq .chezmoi.hostname "spiderman" }}
 hl.workspace_rule({ workspace = utils.workspace_ref(1), monitor = "DP-3", default = true, persistent = true })
 hl.workspace_rule({ workspace = utils.workspace_ref(2), monitor = "DP-2", default = true, persistent = true })
 hl.workspace_rule({ workspace = utils.workspace_ref(3), monitor = "DP-1", default = true, persistent = true })
@@ -14,3 +15,4 @@ hl.workspace_rule({ workspace = utils.workspace_ref(5), monitor = "DP-1", persis
 for i = 6, 10 do
     hl.workspace_rule({ workspace = utils.workspace_ref(i), monitor = "DP-2", persistent = true })
 end
+{{- end }}
