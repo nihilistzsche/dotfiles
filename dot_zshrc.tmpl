@@ -52,13 +52,6 @@ for file in /etc/zsh/*.zsh(N); do
 done
 
 fortune | cowsay | lolcat
-
-{{- if eq .chezmoi.hostname "spiderman" }}
-## [Completion]
-## Completion scripts setup. Remove the following line to uninstall
-[[ -f $HOME/.dart-cli-completion/zsh-config.zsh ]] && . $HOME/.dart-cli-completion/zsh-config.zsh || true
-## [/Completion]
-
 # Only run if a display exists AND we are NOT connected via SSH
 if [[ ( -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ) && -z "$SSH_CONNECTION" && -z "$SSH_CLIENT" ]]; then
 
@@ -77,4 +70,3 @@ else
   unset GTK_IM_MODULE
   unset QT_IM_MODULE
 fi
-{{- end }}
