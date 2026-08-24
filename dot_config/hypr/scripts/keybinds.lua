@@ -1,0 +1,35 @@
+local utils = require("scripts.utils")
+
+local mainMod = "SUPER"
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +5%"))
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pactl set-sink-mute 0 false ; pactl set-sink-volume 0 -5%"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("rofi -show drun"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("slurp | grim -g - - | tee ~/Pictures/$(date +%s).png | wl-copy"))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("thunar"))
+hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("firefox"))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("clipmenu"))
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("wezterm"))
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
+hl.bind(
+    mainMod .. " + V",
+    hl.dsp.exec_cmd("cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy")
+)
+hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "l" }))
+hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "d" }))
+hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "u" }))
+hl.bind(mainMod .. " + SEMICOLON", hl.dsp.focus({ direction = "r" }))
+hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "l" }))
+hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "d" }))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "u" }))
+hl.bind(mainMod .. " + SHIFT + SEMICOLON", hl.dsp.window.move({ direction = "r" }))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("rofi -modi emoji -show emoji -emoji-mode copy"))
+hl.bind(mainMod .. " + Z", hl.dsp.workspace.toggle_special("scratchpad"))
+hl.bind(mainMod .. " + SHIFT + Z", hl.dsp.window.move({ workspace = "special:scratchpad" }))
+hl.bind(mainMod .. " + SHIFT + GRAVE", function()
+    hl.timer(function() hl.dispatch(hl.dsp.dpms({ action = "toggle" })) end, { timeout = 500, type = "oneshot" })
+end)
+for i = 1, 10 do
+    hl.bind("SUPER + " .. (i < 10 and i or "0"), hl.dsp.focus({ workspace = utils.workspace_ref(i) }))
+    hl.bind("SUPER + SHIFT + " .. (i < 10 and i or "0"), hl.dsp.window.move({ workspace = utils.workspace_ref(i) }))
+end

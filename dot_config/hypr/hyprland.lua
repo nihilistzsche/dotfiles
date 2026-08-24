@@ -1,0 +1,7 @@
+require("scripts.env")
+require("scripts.monitors")
+require("scripts.workspace")
+require("scripts.keybinds")
+require("scripts.events")
+require("scripts.config")
+require("scripts.windows")

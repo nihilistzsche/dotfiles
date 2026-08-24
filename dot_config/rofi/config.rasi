@@ -1,0 +1,4 @@
+configuration {
+  font: "Fira Code iScript 10";
+}
+@theme "Monokai"
