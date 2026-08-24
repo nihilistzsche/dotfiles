@@ -1,5 +1,7 @@
 require("scripts.env")
+{{- if eq .chezmoi.hostname "spiderman" }}
 require("scripts.monitors")
+{{- end }}
 require("scripts.workspace")
 require("scripts.keybinds")
 require("scripts.events")

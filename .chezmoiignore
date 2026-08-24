@@ -1,4 +1,4 @@
-{{- if ne .chezmoi.hostname "spiderman"}}
+{{- if and (ne .chezmoi.hostname "spiderman") (ne .chezmoi.hostname "drstrange") }}
 .config/hypr
 .config/waybar
 .config/mako
@@ -6,4 +6,7 @@
 .config/gtk-4.0
 .config/rofi
 .config/wezterm
+{{- end }}
+{{- if ne .chezmoi.hostname "spiderman" }}
+.config/hypr/scripts/monitors.lua
 {{- end }}

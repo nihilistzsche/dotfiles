@@ -53,7 +53,7 @@ done
 
 fortune | cowsay | lolcat
 
-{{- if eq .chezmoi.hostname "spiderman" }}
+{{- if or (eq .chezmoi.hostname "spiderman") (eq .chezmoi.hostname "drstrange") }}
 # Only run if a display exists AND we are NOT connected via SSH
 if [[ ( -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ) && -z "$SSH_CONNECTION" && -z "$SSH_CLIENT" ]]; then
 
