@@ -32,7 +32,6 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
 unset GREP_OPTIONS
 alias grep="grep --color=auto"
 alias sudo="sudo -E "
-alias hgpu="hg pull; hg update"
 alias ls="ls --color=auto"
 alias cat="bat -pp"
 function chpwd() {
@@ -54,6 +53,7 @@ done
 
 fortune | cowsay | lolcat
 
+{{- if eq .chezmoi.hostname "spiderman" }}
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f $HOME/.dart-cli-completion/zsh-config.zsh ]] && . $HOME/.dart-cli-completion/zsh-config.zsh || true
@@ -77,4 +77,4 @@ else
   unset GTK_IM_MODULE
   unset QT_IM_MODULE
 fi
-
+{{- end }}
