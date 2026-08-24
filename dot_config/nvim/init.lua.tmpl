@@ -5,6 +5,8 @@ require("config.lspconfig")
 require("config.neo-tree")
 require("config.indent-blankline")
 
+{{- if or (eq .chezmoi.hostname "spiderman") (eq .chezmoi.hostname "drstrange") }}
 if vim.g.neovide then
   require("config.neovide")
 end
+{{ - end }}
