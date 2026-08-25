@@ -1,0 +1,63 @@
+if status is-interactive
+    # --- History & Globbing Configuration ---
+    # Fish handles history sharing and extended globbing automatically by default.
+
+    # --- Environment Variables ---
+    set -x DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus"
+    set -x EDITOR nvim
+    set -x MAKEFLAGS "-j5"
+
+    # --- Update PATH ---
+    fish_add_path $HOME/.local/bin /usr/share/rvm/bin /usr/local/bin $HOME/bin /usr/local/sbin /usr/X11/bin
+    fish_add_path $HOME/.dotnet/tools
+
+    # --- Aliases ---
+    # Note: Fish enables color for grep and ls by default, but we enforce it here.
+    alias grep "grep --color=auto"
+    alias sudo "sudo -E"
+    alias ls "ls --color=auto"
+    alias cat "bat -pp"
+    alias vim "nvim"
+
+    # --- Functions ---
+    # Automatically run 'ls' when changing directories
+    function on_chpwd --on-variable PWD
+        ls --color
+    end
+
+    # --- External Initializations ---
+    thefuck --alias | source
+
+    # Source global system configs if they exist
+    if test -d /etc/fish/conf.d
+        for file in /etc/fish/conf.d/*.fish
+            source $file
+        end
+    end
+
+    # --- Welcome Message (Fortune/Cowsay) ---
+    fortune | cowsay | lolcat
+    
+    {{- if or (eq .chezmoi.hostname "spiderman") (eq .chezmoi.hostname "drstrange") }}
+    # --- Graphical / Input Method Configuration ---
+    if test -n "$DISPLAY" -o -n "$WAYLAND_DISPLAY"; and test -z "$SSH_CONNECTION"; and test -z "$SSH_CLIENT"
+        if test "$XDG_SESSION_TYPE" = "wayland"
+            # Unset for Wayland
+            set -e GTK_IM_MODULE
+            set -e QT_IM_MODULE
+        else
+            # Fallback for X11 sessions
+            set -x GTK_IM_MODULE fcitx
+            set -x QT_IM_MODULE fcitx
+        end
+    else
+        # Clean up everything on headless hosts and SSH sessions
+        set -e GTK_IM_MODULE
+        set -e QT_IM_MODULE
+    end
+    {{- end }}
+    
+    if type -q starship
+      starship init fish | source
+    end
+end
