@@ -1,0 +1,12 @@
+[Unit]
+Description=Factorio API Ref Upd On Change
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/nihilistzsche
+ExecStart=/home/nihilistzsche/bin/update_factorio_api_ref 
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

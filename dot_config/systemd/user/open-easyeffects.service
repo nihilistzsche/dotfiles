@@ -1,0 +1,15 @@
+[Unit]
+Description=Opens EasyEffects automatically.
+PartOf=graphical-session.target
+Requires=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/easyeffects
+Slice=session.slice
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

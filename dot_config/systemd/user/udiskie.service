@@ -1,0 +1,12 @@
+[Unit]
+Description=Initializes the udiskie usb automounter
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/udiskie -t
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=
+
+[Install]
+WantedBy=graphical-session.target

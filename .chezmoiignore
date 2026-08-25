@@ -6,6 +6,7 @@
 .config/gtk-4.0
 .config/rofi
 .config/wezterm
+.config/systemd
 .config/nvim/lua/config/neovide.lua
 {{- end }}
 {{- if ne .chezmoi.hostname "spiderman" }}
