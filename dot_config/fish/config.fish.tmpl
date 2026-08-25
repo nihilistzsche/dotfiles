@@ -5,7 +5,7 @@ if status is-interactive
     # --- Environment Variables ---
     set -x DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus"
     set -x EDITOR nvim
-    set -x MAKEFLAGS "-j5"
+    set -x MAKEFLAGS -j5
 
     # --- Update PATH ---
     fish_add_path $HOME/.local/bin /usr/share/rvm/bin /usr/local/bin $HOME/bin /usr/local/sbin /usr/X11/bin
@@ -17,7 +17,9 @@ if status is-interactive
     alias sudo "sudo -E"
     alias ls "ls --color=auto"
     alias cat "bat -pp"
-    alias vim "nvim"
+    alias vim nvim
+
+    alias rm='echo "You probably meant trish. Run '\''command rm'\'' if you really meant to remove."'
 
     # --- Functions ---
     # Automatically run 'ls' when changing directories
@@ -37,11 +39,11 @@ if status is-interactive
 
     # --- Welcome Message (Fortune/Cowsay) ---
     fortune | cowsay | lolcat
-    
+
     {{- if or (eq .chezmoi.hostname "spiderman") (eq .chezmoi.hostname "drstrange") }}
     # --- Graphical / Input Method Configuration ---
     if test -n "$DISPLAY" -o -n "$WAYLAND_DISPLAY"; and test -z "$SSH_CONNECTION"; and test -z "$SSH_CLIENT"
-        if test "$XDG_SESSION_TYPE" = "wayland"
+        if test "$XDG_SESSION_TYPE" = wayland
             # Unset for Wayland
             set -e GTK_IM_MODULE
             set -e QT_IM_MODULE
@@ -56,8 +58,8 @@ if status is-interactive
         set -e QT_IM_MODULE
     end
     {{- end }}
-    
+
     if type -q starship
-      starship init fish | source
+        starship init fish | source
     end
 end
