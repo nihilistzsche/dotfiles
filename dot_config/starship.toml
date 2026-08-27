@@ -11,21 +11,26 @@ format = '\[[$symbol$percentage]($style)\]'
 
 [buf]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [bun]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [c]
 format = '\[[$symbol($version(-$name))]($style)\]'
+detect_folders = ["!.config"]
 
 [cmake]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [cmd_duration]
 format = '\[[⏱ $duration]($style)\]'
 
 [cobol]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [conda]
 format = '\[[$symbol$environment]($style)\]'
@@ -35,42 +40,55 @@ format = '\[[$symbol \[$name\]]($style)\]'
 
 [cpp]
 format = '\[[$symbol($version(-$name))]($style)\]'
+detect_folders = ["!.config"]
 
 [crystal]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [daml]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [dart]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [deno]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [direnv]
 format = '\[[$symbol$loaded/$allowed]($style)\]'
+detect_folders = ["!.config"]
 
 [docker_context]
 format = '\[[$symbol$context]($style)\]'
+detect_folders = ["!.config"]
 
 [dotnet]
 format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
+detect_folders = ["!.config"]
 
 [elixir]
 format = '\[[$symbol($version \(OTP $otp_version\))]($style)\]'
+detect_folders = ["!.config"]
 
 [elm]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [erlang]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [fennel]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [fortran]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [fossil_branch]
 format = '\[[$symbol$branch]($style)\]'
@@ -98,24 +116,30 @@ format = '([\[$all_status$ahead_behind\]]($style))'
 
 [gleam]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [golang]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [gradle]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [guix_shell]
 format = '\[[$symbol]($style)\]'
 
 [haskell]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [haxe]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [helm]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [hg_branch]
 format = '\[[$symbol$branch]($style)\]'
@@ -125,27 +149,33 @@ format = '\[[$ssh_symbol($hostname)]($style)\] '
 
 [java]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [jobs]
 format = '\[[$symbol$number]($style)\]'
 
 [julia]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [kotlin]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [kubernetes]
 format = '\[[$symbol$context( \($namespace\))]($style)\]'
+detect_folders = ["!.config"]
 
 [localip]
 format = '\[[$localipv4]($style)\]'
 
 [lua]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [maven]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [memory_usage]
 format = '\[$symbol[$ram( | $swap)]($style)\]'
@@ -155,9 +185,11 @@ format = '\[[$symbol$project]($style)\]'
 
 [mise]
 format = '\[[$symbol$health]($style)\]'
+detect_folders = ["!.config"]
 
 [mojo]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [nats]
 format = '\[[$symbol$name]($style)\]'
@@ -167,21 +199,26 @@ format = '\[[$symbol \[$name\]]($style)\]'
 
 [nim]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [nix_shell]
 format = '\[[$symbol$state( \($name\))]($style)\]'
 
 [nodejs]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [ocaml]
 format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
+detect_folders = ["!.config"]
 
 [odin]
 format = '\[[$symbol($version )]($style)\]'
+detect_folders = ["!.config"]
 
 [opa]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [openstack]
 format = '\[[$symbol$cloud(\($project\))]($style)\]'
@@ -194,45 +231,57 @@ format = '\[[$symbol$version]($style)\]'
 
 [perl]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [php]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [pijul_channel]
 format = '\[[$symbol$channel]($style)\]'
 
 [pixi]
 format = '\[[$symbol$version( $environment)]($style)\]'
+detect_folders = ["!.config"]
 
 [pulumi]
 format = '\[[$symbol$stack]($style)\]'
 
 [purescript]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [python]
 format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
+detect_folders = ["!.config"]
 
 [quarto]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [raku]
 format = '\[[$symbol($version-$vm_version)]($style)\]'
+detect_folders = ["!.config"]
 
 [red]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [rlang]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [ruby]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [rust]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [scala]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [shell]
 format = '\[[$indicator]($style)\]'
@@ -242,6 +291,7 @@ format = '\[[$symbol\[$env\]]($style)\]'
 
 [solidity]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [spack]
 format = '\[[$symbol$environment]($style)\]'
@@ -254,30 +304,37 @@ format = '\[[as $symbol]($style)\]'
 
 [swift]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [terraform]
 format = '\[[$symbol$workspace]($style)\]'
+detect_folders = ["!.config"]
 
 [time]
 format = '\[[$time]($style)\]'
 
 [typst]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [username]
 format = '\[[$user]($style)\]'
 
 [vagrant]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [vcsh]
 format = '\[vcsh [$symbol$repo]($style)\]'
 
 [vlang]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [xmake]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]
 
 [zig]
 format = '\[[$symbol($version)]($style)\]'
+detect_folders = ["!.config"]

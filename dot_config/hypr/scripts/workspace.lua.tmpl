@@ -1,8 +1,7 @@
 local utils = require("scripts.utils")
-local workspaces = utils.workspaces
 
 for i = 1, 10 do
-    hl.dsp.workspace.rename({ workspace = i, name = workspaces[i] })
+    hl.dsp.workspace.rename({ workspace = i, name = utils.workspace_ref(i) })
 end
 
 {{- if eq .chezmoi.hostname "spiderman" }}

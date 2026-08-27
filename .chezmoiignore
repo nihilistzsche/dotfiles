@@ -8,6 +8,7 @@
 .config/wezterm
 .config/systemd
 .config/wayweather
+.config/qutebrowser
 .config/nvim/lua/config/neovide.lua
 {{- end }}
 {{- if ne .chezmoi.hostname "spiderman" }}

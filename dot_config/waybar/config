@@ -31,7 +31,24 @@
     "custom/power"
   ],
   "hyprland/workspaces": {
-    "on-click": "activate"
+    "on-click": "activate",
+    "active-only": false,
+    "all-outputs": false,
+    "sort-by": "number",
+    "format": "{icon}",
+    "format-icons": {
+      "1_Games": "Games",
+      "2_Discord": "Discord",
+      "3_Dev": "Dev",
+      "4_Media": "Media",
+      "5_Web": "Web",
+      "6_Extra1": "Extra1",
+      "7_Teamcraft": "Teamcraft",
+      "8_Steam": "Steam",
+      "9_EasyEffects": "EasyEffects",
+      "10_Terminal": "Terminal",
+      "default": "{name}"
+    }
   },
   "hyprland/window": {
     "separate-outputs": true
