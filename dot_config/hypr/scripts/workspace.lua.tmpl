@@ -5,13 +5,15 @@ for i = 1, 10 do
 end
 
 {{- if eq .chezmoi.hostname "spiderman" }}
-hl.workspace_rule({ workspace = utils.workspace_ref(1), monitor = "DP-3", default = true, persistent = true })
-hl.workspace_rule({ workspace = utils.workspace_ref(2), monitor = "DP-2", default = true, persistent = true })
-hl.workspace_rule({ workspace = utils.workspace_ref(3), monitor = "DP-1", default = true, persistent = true })
-hl.workspace_rule({ workspace = utils.workspace_ref(4), monitor = "HDMI-A-1", default = true, persistent = true })
-hl.workspace_rule({ workspace = utils.workspace_ref(5), monitor = "DP-1", persistent = true })
+hl.workspace_rule({ workspace = utils.workspace_ref(1), monitor = "DP-3", default = true})
+hl.workspace_rule({ workspace = utils.workspace_ref(2), monitor = "DP-2", default = true})
+hl.workspace_rule({ workspace = utils.workspace_ref(3), monitor = "DP-1", default = true})
+hl.workspace_rule({ workspace = utils.workspace_ref(4), monitor = "HDMI-A-1", default = true})
+hl.workspace_rule({ workspace = utils.workspace_ref(5), monitor = "DP-1"})
 
 for i = 6, 10 do
-    hl.workspace_rule({ workspace = utils.workspace_ref(i), monitor = "DP-2", persistent = true })
+    hl.workspace_rule({ workspace = utils.workspace_ref(i), monitor = "DP-2"})
 end
+{{- else }}
+hl.workspace_rule({ workspace = utils.workspace_ref(1), default = true })
 {{- end }}
