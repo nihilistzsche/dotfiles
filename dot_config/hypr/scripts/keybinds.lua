@@ -6,7 +6,7 @@ hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pactl set-sink-mute 0 false ; p
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("rofi -show drun"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("slurp | grim -g - - | tee ~/Pictures/$(date +%s).png | wl-copy"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("thunar"))
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("firefox"))
+hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("qutebrowser"))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("clipmenu"))
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("wezterm"))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
