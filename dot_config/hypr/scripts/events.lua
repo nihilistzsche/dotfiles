@@ -1,60 +1,118 @@
 local utils = require("scripts.utils")
 
 local autostart_cmds = {
-    exec = {
-        "wl-clip-persist --clipboard regular",
-        "wl-paste --type text --watch cliphist store",
-        "wl-paste --type image --watch cliphist store",
-        "hyprscratch init clean eager",
-        "waybar",
-        "hyprpaper",
-        "hypridle",
-        "hyprsunset",
-        "mako",
-        "blueman-applet",
-        "caffeine",
-        "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP",
-        "systemctl --user start hyprland-session.target",
-        {
-            cmd = "wezterm",
-            args = { workspace = utils.workspace_ref(10) },
-        },
-    },
-    dispatch = {
-        {
-            fn = hl.dsp.focus,
-            args = { workspace = utils.workspace_ref(1) },
-        },
-    },
+	exec = {
+		"wl-clip-persist --clipboard regular",
+		"wl-paste --type text --watch cliphist store",
+		"wl-paste --type image --watch cliphist store",
+		"hyprscratch init clean eager",
+		"waybar",
+		"hyprpaper",
+		"hypridle",
+		"hyprsunset",
+		"mako",
+		"blueman-applet",
+		"caffeine",
+		"dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP",
+		"systemctl --user start hyprland-session.target",
+		{
+			cmd = "wezterm",
+			args = { workspace = utils.workspace_ref(10) },
+		},
+	},
+	dispatch = {
+		{
+			fn = hl.dsp.focus,
+			args = { workspace = utils.workspace_ref(1) },
+		},
+	},
 }
 
 local function run_autostart(entries)
-    for _, entry in ipairs(entries) do
-        if type(entry) == "table" then
-            hl.exec_cmd(entry.cmd, entry.args)
-        else
-            hl.exec_cmd(entry)
-        end
-    end
+	for _, entry in ipairs(entries) do
+		if type(entry) == "table" then
+			hl.exec_cmd(entry.cmd, entry.args)
+		else
+			hl.exec_cmd(entry)
+		end
+	end
 end
 
 local function run_dispatch(entries)
-    for _, entry in ipairs(entries) do
-        hl.dispatch(entry.fn(entry.args))
-    end
+	for _, entry in ipairs(entries) do
+		hl.dispatch(entry.fn(entry.args))
+	end
 end
 
 hl.on("hyprland.start", function()
-    run_autostart(autostart_cmds.exec)
-    run_dispatch(autostart_cmds.dispatch)
+	run_autostart(autostart_cmds.exec)
+	run_dispatch(autostart_cmds.dispatch)
 end)
 
-hl.on("hyprland.shutdown", function() os.execute("systemctl --user stop hyprland-session.target && sleep 0.1") end)
-
-local closedWindow = false
-hl.on("window.open", function(w)
-    if w.class == "ckb-next" and not closedWindow then
-        hl.dispatch(hl.dsp.window.close({ window = w }))
-        closedWindow = true
-    end
+hl.on("hyprland.shutdown", function()
+	os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
 end)
+
+local checkCkbNext
+do
+	local closedWindow = false
+	checkCkbNext = function(w)
+		if w.class == "ckb-next" and not closedWindow then
+			hl.dispatch(hl.dsp.window.close({ window = w }))
+			closedWindow = true
+		end
+	end
+end
+
+hl.on("window.open", checkCkbNext)
+
+local STEAM_DIRS = {
+	"/home/" .. os.getenv("USER") .. "/.local/share/Steam",
+	"/home/" .. os.getenv("USER") .. "/SteamLibrary",
+	"Z:\\home\\" .. os.getenv("USER") .. "\\.local\\share\\Steam",
+	"Z:\\home\\" .. os.getenv("USER") .. "\\SteamLibrary\\",
+}
+
+local checkIfSteamGame
+do
+	-- Check if a process path belongs to Steam
+	local function is_steam_process(pid)
+		if not pid or pid == 0 then
+			return false
+		end
+
+		-- Open the process command line file cleanly
+		local f = io.open("/proc/" .. pid .. "/cmdline", "r")
+		if not f then
+			return false
+		end
+
+		local cmdline = f:read("*a")
+		f:close()
+
+		if not cmdline or cmdline == "" then
+			return false
+		end
+		-- Read the real link target of the running process binary
+		-- Check if the binary location matches either directory path
+		for _, dir in ipairs(STEAM_DIRS) do
+			if cmdline:find(1, #dir, true) then
+				return true
+			end
+		end
+		return false
+	end
+
+	checkIfSteamGame = function(w)
+		if is_steam_process(w.pid) then
+			hl.window_rule({
+				match = {
+					class = w.class,
+				},
+				workspace = utils.workspace_ref(1),
+			})
+		end
+	end
+end
+
+hl.on("window.open", checkIfSteamGame)
