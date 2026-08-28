@@ -96,7 +96,7 @@ do
 		-- Read the real link target of the running process binary
 		-- Check if the binary location matches either directory path
 		for _, dir in ipairs(STEAM_DIRS) do
-			if cmdline:find(1, #dir, true) then
+			if cmdline:sub(1, #dir) == dir then
 				return true
 			end
 		end
