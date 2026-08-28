@@ -1,0 +1,84 @@
+# --- Plugins ---
+use epm
+epm:install &silent-if-installed github.com/zzamboni/elvish-modules
+epm:upgrade github.com/zzamboni/elvish-modules
+use github.com/zzamboni/elvish-modules/alias
+use github.com/zzamboni/elvish-modules/bang-bang
+use github.com/zzamboni/elvish-modules/dir
+use github.com/zzamboni/elvish-modules/long-running-notifications
+use github.com/zzamboni/elvish-modules/spinners
+epm:install &silent-if-installed=$true github.com/crinklywrappr/rivendell
+epm:upgrade github.com/crinklywrappr/rivendell
+use github.com/crinklywrappr/rivendell/test t
+use github.com/crinklywrappr/rivendell/base b
+use github.com/crinklywrappr/rivendell/fun f
+use github.com/crinklywrappr/rivendell/lazy l
+use github.com/crinklywrappr/rivendell/rune r
+use github.com/crinklywrappr/rivendell/algo a
+use github.com/crinklywrappr/rivendell/vis v
+
+# --- Environment Variables ---
+set E:DBUS_SESSION_BUS_ADDRESS = "unix:path="$E:XDG_RUNTIME_DIR"/bus"
+set E:EDITOR = nvim
+
+# --- Update PATH ---
+set paths = [
+    $E:HOME/.local/bin
+    /usr/share/rvm/bin
+    /usr/local/bin
+    $E:HOME/bin
+    /usr/local/sbin
+    /usr/X11/bin
+    $E:HOME/.dotnet/tools
+    $@paths
+]
+
+# --- Aliases / Functions ---
+# Elvish doesn't use standard aliases; we wrap functions. 
+fn grep {|@a| e:grep --color=auto $@a }
+fn sudo {|@a| e:sudo -E $@a }
+fn ls   {|@a| e:ls --color=auto $@a }
+fn cat  {|@a| bat -pp $@a }
+fn vim  {|@a| nvim $@a }
+
+fn rm {|@a| 
+    echo "You probably meant trish. Run 'command rm' if you really meant to remove." 
+}
+
+# --- Functions & Hooks ---
+# Automatically run 'ls' when changing directories using the built-in hook list
+set after-chdir = [ $@after-chdir {|_| ls --color } ]
+
+# Loop through all .elv files in the /etc/elvish directory
+for file [/etc/elvish/conf.d/*.elv] {
+    # Check if the file exists and is readable before running it
+    if { test -f $file } {
+        # Slurp the content and evaluate it in the interactive loop
+        eval (slurp < $file)
+    }
+}
+
+# --- Welcome Message (Fortune/Cowsay) ---
+fortune | cowsay | lolcat
+
+{{- if or (eq .chezmoi.hostname "spiderman") (eq .chezmoi.hostname "drstrange") }}
+# --- Graphical / Input Method Configuration ---
+if (or (has-env DISPLAY) (has-env WAYLAND_DISPLAY)) {
+    if (not (or (has-env SSH_CONNECTION) (has-env SSH_CLIENT))) {
+        if (eq $E:XDG_SESSION_TYPE wayland) {
+            unset-env GTK_IM_MODULE
+            unset-env QT_IM_MODULE
+        } else {
+            set E:GTK_IM_MODULE = fcitx
+            set E:QT_IM_MODULE = fcitx
+        }
+    }
+} else {
+    unset-env GTK_IM_MODULE
+    unset-env QT_IM_MODULE
+}
+{{- end }}
+
+if (has-external starship) {
+    eval (starship init elvish | slurp)
+}
