@@ -40,6 +40,9 @@ if status is-interactive
     # --- Welcome Message (Fortune/Cowsay) ---
     fortune | cowsay | lolcat
 
+    bind --user up up-line-or-beginning-search
+    bind --user down down-line-or-beginning-search
+
     {{- if or (eq .chezmoi.hostname "spiderman") (eq .chezmoi.hostname "drstrange") }}
     # --- Graphical / Input Method Configuration ---
     if test -n "$DISPLAY" -o -n "$WAYLAND_DISPLAY"; and test -z "$SSH_CONNECTION"; and test -z "$SSH_CLIENT"
