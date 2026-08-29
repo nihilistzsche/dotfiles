@@ -41,8 +41,8 @@ fn ls   {|@a| e:ls --color=auto $@a }
 fn cat  {|@a| bat -pp $@a }
 fn vim  {|@a| nvim $@a }
 
-fn rm {|@a| 
-    echo "You probably meant trish. Run 'command rm' if you really meant to remove." 
+fn rm {|@args|
+    trash-put $@args
 }
 
 # --- Functions & Hooks ---
@@ -50,7 +50,7 @@ fn rm {|@a|
 set after-chdir = [ $@after-chdir {|_| ls --color } ]
 
 # Loop through all .elv files in the /etc/elvish directory
-for file [/etc/elvish/conf.d/*.elv] {
+for file [/etc/elvish/conf.d/*[nomatch-ok].elv] {
     # Check if the file exists and is readable before running it
     if { test -f $file } {
         # Slurp the content and evaluate it in the interactive loop
