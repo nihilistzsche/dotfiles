@@ -1,14 +1,12 @@
 # --- Plugins ---
 use epm
 epm:install &silent-if-installed github.com/zzamboni/elvish-modules
-epm:upgrade github.com/zzamboni/elvish-modules
 use github.com/zzamboni/elvish-modules/alias
 use github.com/zzamboni/elvish-modules/bang-bang
 use github.com/zzamboni/elvish-modules/dir
 use github.com/zzamboni/elvish-modules/long-running-notifications
 use github.com/zzamboni/elvish-modules/spinners
 epm:install &silent-if-installed=$true github.com/crinklywrappr/rivendell
-epm:upgrade github.com/crinklywrappr/rivendell
 use github.com/crinklywrappr/rivendell/test t
 use github.com/crinklywrappr/rivendell/base b
 use github.com/crinklywrappr/rivendell/fun f
