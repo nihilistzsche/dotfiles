@@ -17,6 +17,7 @@ use github.com/crinklywrappr/rivendell/rune r
 use github.com/crinklywrappr/rivendell/algo a
 use github.com/crinklywrappr/rivendell/vis v
 
+
 # --- Environment Variables ---
 set E:DBUS_SESSION_BUS_ADDRESS = "unix:path="$E:XDG_RUNTIME_DIR"/bus"
 set E:EDITOR = nvim
@@ -50,7 +51,7 @@ fn rm {|@args|
 set after-chdir = [ $@after-chdir {|_| ls --color } ]
 
 # Loop through all .elv files in the /etc/elvish directory
-for file [/etc/elvish/conf.d/*[nomatch-ok].elv] {
+for file [/etc/elvish/lib/*[nomatch-ok].elv] {
     # Check if the file exists and is readable before running it
     if { test -f $file } {
         # Slurp the content and evaluate it in the interactive loop
@@ -82,3 +83,10 @@ if (or (has-env DISPLAY) (has-env WAYLAND_DISPLAY)) {
 if (has-external starship) {
     eval (starship init elvish | slurp)
 }
+
+# Bind UP arrow to search history matching what you already typed
+set edit:insert:binding[Up] = { edit:history:start }
+
+# Bind DOWN arrow to cycle back forward
+set edit:insert:binding[Down] = { edit:history:down }
+
