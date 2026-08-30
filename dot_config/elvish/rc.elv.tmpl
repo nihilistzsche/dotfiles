@@ -1,5 +1,6 @@
 # --- Plugins ---
 use epm
+use str
 epm:install &silent-if-installed github.com/zzamboni/elvish-modules
 use github.com/zzamboni/elvish-modules/alias
 use github.com/zzamboni/elvish-modules/bang-bang
@@ -49,11 +50,19 @@ fn rm {|@args|
 set after-chdir = [ $@after-chdir {|_| ls --color } ]
 
 # Loop through all .elv files in the /etc/elvish directory
-for file [/etc/elvish/lib/*[nomatch-ok].elv] {
+for file [~/.config/elvish/lib/*[nomatch-ok].elv] {
     # Check if the file exists and is readable before running it
     if { test -f $file } {
-        # Slurp the content and evaluate it in the interactive loop
-        eval (slurp < $file)
+        var module-name = (str:trim-suffix (basename $file) .elv)
+        var mod-ns = (use-mod $module-name)
+
+        for key [(keys $mod-ns)] {
+            if (str:has-suffix $key '~') {
+                var fn-ref = $mod-ns[$key]
+
+                edit:add-var $key $fn-ref
+            }
+        }
     }
 }
 
