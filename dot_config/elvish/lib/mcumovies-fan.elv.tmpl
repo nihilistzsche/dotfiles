@@ -1,12 +1,12 @@
-# --- Prerequisites ---
-# Elvish requires you to explicitly import the regular expression module
+# Note many of these functions require packages installed from the
+# mcumovies-fan custom repository for Arch Linux which is not publicly
+# available.  If using these dotfiles elsewhere, it is recommended
+# that you remove this file.
 
 use re
 use github.com/crinklywrappr/rivendell/fun f
 use github.com/crinklywrappr/rivendell/lazy l
 
-# --- Aliases converted to Functions ---
-# Elvish uses {|@a| ... } to accept and forward any number of extra arguments
 fn kadmin  { kadmin -k -t {{ .keytab }} -p {{ .krb5_admin }} }
 fn lvon    { hueadm group 1 on }
 fn lvoff   { hueadm group 1 off }
@@ -20,14 +20,12 @@ fn rdbr    { set_scene "{{ .scene_2_rd }}" 2 }
 fn rr      { set_scene "{{ .scene_1_rr }}" 1 }
 fn rrn     { set_scene "{{ .scene_1_rrn }}" 1 }
 
-# --- Custom String Manipulation Function ---
 fn incustohost {|arg|
     # re:replace handles regex replacement. It accepts (pattern, replacement, source)
     var val = (re:replace '.*-replicated$' '' $arg)
     echo (re:replace '.*:.*-' '' $val)
 }
 
-# --- Aliases dependent on functions ---
 fn incuslst { incusls {{ .container_hostname }} | f:listify }
 
 fn inc-to-list {|hosts| each {|h| put (incustohost $h)"{{ .domain }}"} $hosts | f:listify} 
