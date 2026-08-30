@@ -69,7 +69,7 @@ for file [~/.config/elvish/lib/*[nomatch-ok].elv] {
 # --- Welcome Message (Fortune/Cowsay) ---
 fortune | cowsay | lolcat
 
-{{- if or (eq .chezmoi.hostname "spiderman") (eq .chezmoi.hostname "drstrange") }}
+{{- if or (eq .chezmoi.hostname .pc_hostname) (eq .chezmoi.hostname .laptop_hostname) }}
 # --- Graphical / Input Method Configuration ---
 if (or (has-env DISPLAY) (has-env WAYLAND_DISPLAY)) {
     if (not (or (has-env SSH_CONNECTION) (has-env SSH_CLIENT))) {

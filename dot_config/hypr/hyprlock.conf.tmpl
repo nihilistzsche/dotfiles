@@ -34,7 +34,7 @@ animations {
 }
 
 background {
-{{- if eq .chezmoi.hostname "spiderman" }}
+{{- if eq .chezmoi.hostname .pc_hostname }}
     monitor = DP-3
 {{- else }}
     monitor =
@@ -44,7 +44,7 @@ background {
 }
 
 input-field {
-{{- if eq .chezmoi.hostname "spiderman" }}
+{{- if eq .chezmoi.hostname .pc_hostname }}
     monitor = DP-3
 {{- else }}
     monitor =
@@ -83,7 +83,7 @@ input-field {
 
 # TIME
 label {
-{{- if eq .chezmoi.hostname "spiderman" }}
+{{- if eq .chezmoi.hostname .pc_hostname }}
     monitor = DP-3
 {{- else }}
     monitor =
@@ -99,7 +99,7 @@ label {
 
 # DATE
 label {
-{{- if eq .chezmoi.hostname "spiderman" }}
+{{- if eq .chezmoi.hostname .pc_hostname }}
     monitor = DP-3
 {{- else }}
     monitor =
@@ -114,7 +114,7 @@ label {
 }
 
 label {
-{{- if eq .chezmoi.hostname "spiderman" }}
+{{- if eq .chezmoi.hostname .pc_hostname }}
     monitor = DP-3
 {{- else }}
     monitor =

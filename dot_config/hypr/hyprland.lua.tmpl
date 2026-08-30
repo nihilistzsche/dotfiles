@@ -1,5 +1,5 @@
 require("scripts.env")
-{{- if eq .chezmoi.hostname "spiderman" }}
+{{- if eq .chezmoi.hostname .pc_hostname }}
 require("scripts.monitors")
 {{- end }}
 require("scripts.workspace")

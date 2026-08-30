@@ -6,7 +6,7 @@ require("config.neo-tree")
 require("config.indent-blankline")
 require("config.elvish-lsp")
 
-{{- if or (eq .chezmoi.hostname "spiderman") (eq .chezmoi.hostname "drstrange") }}
+{{- if or (eq .chezmoi.hostname .pc_hostname) (eq .chezmoi.hostname .laptop_hostname) }}
 if vim.g.neovide then
   require("config.neovide")
 end

@@ -1,4 +1,4 @@
-{{- if and (ne .chezmoi.hostname "spiderman") (ne .chezmoi.hostname "drstrange") }}
+{{- if and (ne .chezmoi.hostname .pc_hostname) (ne .chezmoi.hostname .laptop_hostname) }}
 .config/hypr
 .config/waybar
 .config/mako
@@ -11,6 +11,6 @@
 .config/qutebrowser
 .config/nvim/lua/config/neovide.lua
 {{- end }}
-{{- if ne .chezmoi.hostname "spiderman" }}
+{{- if ne .chezmoi.hostname .pc_hostname }}
 .config/hypr/scripts/monitors.lua
 {{- end }}
