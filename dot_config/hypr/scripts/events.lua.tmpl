@@ -45,14 +45,6 @@ local function run_dispatch(entries)
 end
 
 hl.on("hyprland.start", function()
-    {{ if stat (joinPath .chezmoi.homeDir ".ssh" "id_ed25519_github") }}
-    -- Point SSH to GPG's socket where pinentry works
-    hl.env({ "SSH_AUTH_SOCK", "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh" })
-
-    -- Start the keys addition on boot
-    hl.exec_once("ssh-add ~/.ssh/id_ed25519_github")
-    hl.exec_once("ssh-add ~/.ssh/id_ed25519_aur")
-    {{- end }}
     run_autostart(autostart_cmds.exec)
     run_dispatch(autostart_cmds.dispatch)
 end)
@@ -61,29 +53,21 @@ hl.on("hyprland.shutdown", function()
     os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
 end)
 
-local checkCkbNext
 do
-    local closedWindow = false
-    checkCkbNext = function(w)
+    local function checkCkbNextAndClose(w)
         if w.class == "ckb-next" and not closedWindow then
             hl.dispatch(hl.dsp.window.close({ window = w }))
             closedWindow = true
         end
     end
-end
 
-hl.on("window.open", checkCkbNext)
+    local STEAM_DIRS = {
+        "/home/" .. os.getenv("USER") .. "/.local/share/Steam",
+        "/home/" .. os.getenv("USER") .. "/SteamLibrary",
+        "Z:\\home\\" .. os.getenv("USER") .. "\\.local\\share\\Steam",
+        "Z:\\home\\" .. os.getenv("USER") .. "\\SteamLibrary\\",
+    }
 
-local STEAM_DIRS = {
-    "/home/" .. os.getenv("USER") .. "/.local/share/Steam",
-    "/home/" .. os.getenv("USER") .. "/SteamLibrary",
-    "Z:\\home\\" .. os.getenv("USER") .. "\\.local\\share\\Steam",
-    "Z:\\home\\" .. os.getenv("USER") .. "\\SteamLibrary\\",
-}
-
-local checkIfSteamGame
-do
-    -- Check if a process path belongs to Steam
     local function is_steam_process(pid)
         if not pid or pid == 0 then
             return false
@@ -111,7 +95,7 @@ do
         return false
     end
 
-    checkIfSteamGame = function(w)
+    local function checkIfSteamGameAndMove(w)
         if is_steam_process(w.pid) then
             hl.window_rule({
                 match = {
@@ -121,6 +105,11 @@ do
             })
         end
     end
-end
 
-hl.on("window.open", checkIfSteamGame)
+    hl.on("window.open", function(w)
+        if not closedWindow then
+            checkCkbNextAndClose(w)
+        end
+        checkIfSteamGameAndMove(w)
+    end)
+end
