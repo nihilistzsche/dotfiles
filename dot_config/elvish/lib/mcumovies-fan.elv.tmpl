@@ -12,28 +12,27 @@ fn lvon    { hueadm group 1 on }
 fn lvoff   { hueadm group 1 off }
 fn bdon    { hueadm group 2 on }
 fn bdoff   { hueadm group 2 off }
-fn gron    { hueadm group 5 on }
-fn groff   { hueadm group 5 off }
-fn ftincus { ssh -t {{ .container_hostname_full }} -- sudo systemctl restart incus }
+fn aron    { hueadm group 5 on }
+fn aroff   { hueadm group 5 off }
+fn restart-incus { ssh -t {{ .container_hostname_full }} -- sudo systemctl restart incus }
 fn rd      { set_scene "{{ .scene_1_rd }}" 1 }
 fn rdbr    { set_scene "{{ .scene_2_rd }}" 2 }
 fn rr      { set_scene "{{ .scene_1_rr }}" 1 }
 fn rrn     { set_scene "{{ .scene_1_rrn }}" 1 }
 
-fn incustohost {|arg|
-    # re:replace handles regex replacement. It accepts (pattern, replacement, source)
+fn _container-to-hostname {|arg|
     var val = (re:replace '.*-replicated$' '' $arg)
     echo (re:replace '.*:.*-' '' $val)
 }
 
-fn incuslst { incusls {{ .container_hostname }} | f:listify }
+fn _list-containers { incusls {{ .container_hostname }} | f:listify }
 
-fn inc-to-list {|hosts| each {|h| put (incustohost $h)"{{ .domain }}"} $hosts | f:listify} 
+fn _containers-to-fqdn {|hosts| each {|h| put (_container-to-hostname $h)"{{ .domain }}"} $hosts | f:listify} 
 
-var u = "{{ .update_command }}"
+var _u = "{{ .update_command }}"
 fn update-containers {
-  var hosts = (inc-to-list (incuslst))
+  var hosts = (_containers-to-fqdn (_list-containers))
 
-  peach &num-workers=4 {|h| ssh -t $h -- $u } $hosts
+  peach &num-workers=4 {|h| ssh -t $h -- $_u } $hosts
 }
 
