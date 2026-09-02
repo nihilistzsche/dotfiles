@@ -5,7 +5,6 @@
 
 use re
 use github.com/crinklywrappr/rivendell/fun f
-use github.com/crinklywrappr/rivendell/lazy l
 
 fn kadmin  { kadmin -k -t {{ .keytab }} -p {{ .krb5_admin }} }
 fn lvon    { hueadm group 1 on }
@@ -14,7 +13,7 @@ fn bdon    { hueadm group 2 on }
 fn bdoff   { hueadm group 2 off }
 fn aron    { hueadm group 5 on }
 fn aroff   { hueadm group 5 off }
-fn restart-incus { ssh -t {{ .container_hostname_full }} -- sudo systemctl restart incus }
+fn restart-incus { ssh -t {{ .container_hostname }}{{ .domain }} -- sudo systemctl restart incus }
 fn rd      { set_scene "{{ .scene_1_rd }}" 1 }
 fn rdbr    { set_scene "{{ .scene_2_rd }}" 2 }
 fn rr      { set_scene "{{ .scene_1_rr }}" 1 }
