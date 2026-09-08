@@ -26,6 +26,8 @@ hl.bind(mainMod .. " + SHIFT + SEMICOLON", hl.dsp.window.move({ direction = "r" 
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("rofi -modi emoji -show emoji -emoji-mode copy"))
 hl.bind(mainMod .. " + Z", hl.dsp.workspace.toggle_special("scratchpad"))
 hl.bind(mainMod .. " + SHIFT + Z", hl.dsp.window.move({ workspace = "special:scratchpad" }))
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("gpu-screen-recorder -w DP-3 -r 5 -c mp4 -o $HOME/Videos"))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("pkill -SIGUSR1 -f gpu-screen-recorder"))
 hl.bind(mainMod .. " + SHIFT + GRAVE", function()
 	hl.timer(function()
 		hl.dispatch(hl.dsp.dpms({ action = "toggle" }))
