@@ -1,4 +1,5 @@
 yay.opt.answer_diff = "ALL"
+yay.opt.makepkg_bin = "makepkg-bin"
 require("hooks.maintainer_change")
 require("hooks.recently_modified")
 
